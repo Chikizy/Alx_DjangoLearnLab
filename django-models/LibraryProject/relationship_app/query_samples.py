@@ -12,3 +12,11 @@ def list_books(library_name):
 def get_lib_librarian(library_name):
     library = Library.objects.get(name=library_name)
     return library.librarian
+#           OR
+def get_librarian(library_name):
+    librarian = Librarian.objects.get(library__name=library_name)
+    return librarian.name
+#           OR
+def get_lib_librarian(library_name):
+    lib = Library.objects.get(library=library_name)
+    return Librarian.objects.get(library=lib)
