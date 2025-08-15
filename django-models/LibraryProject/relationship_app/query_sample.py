@@ -19,5 +19,4 @@ def get_librarian(library_name):
 #           OR
 def get_lib_librarian(library_name):
     lib = Library.objects.get(library=library_name)
-    librarian = Librarian.objects.get(library=lib)
-    return librarian.name
+    return Librarian.objects.get(library=lib)
