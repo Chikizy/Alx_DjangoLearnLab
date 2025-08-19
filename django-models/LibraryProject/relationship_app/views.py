@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
-from .models import Book 
-from .models import Library
+from .models import Library, Book
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.contrib.auth import login
 
 # Create your views here.
 def list_books(request):
@@ -19,3 +22,17 @@ class LibraryDetailView(DetailView):
         library = self.get_object()
         context['books'] = library.book_set.all()
         return context 
+
+class CustomLoginView(LoginView):
+    template_name = 'relationship/login.html'
+    redirect_authenticated_user = True
+    success_url = reverse_lazy('home')
+
+class CustomLogoutView(LogoutView):
+    template_name = 'relationship_app/logout.html'
+    logout_page = reverse_lazy('logout')
+
+class RegistrationView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'relationship_app/register.html'
+    success_url = reverse_lazy('login')
