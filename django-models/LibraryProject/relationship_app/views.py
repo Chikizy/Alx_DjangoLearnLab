@@ -30,9 +30,19 @@ class CustomLoginView(LoginView):
 
 class CustomLogoutView(LogoutView):
     template_name = 'relationship_app/logout.html'
-    logout_page = reverse_lazy('logout')
 
-class registerView(CreateView):
-    form_class = UserCreationForm
-    template_name = 'relationship_app/register.html'
-    success_url = reverse_lazy('login')
+# class registerView(CreateView):
+#    form_class = UserCreationForm
+#    template_name = 'relationship_app/register.html'
+#    success_url = reverse_lazy('login')
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            form = UserCreationForm()
+        return render(request, 'relationship_app/register.html', {'form' : form})
