@@ -23,13 +23,13 @@ class LibraryDetailView(DetailView):
         context['books'] = library.book_set.all()
         return context 
 
-class CustomLoginView(LoginView):
-    template_name = 'relationship/login.html'
-    redirect_authenticated_user = True
-    success_url = reverse_lazy('home')
+#class CustomLoginView(LoginView):
+#    template_name = 'relationship/login.html'
+#    redirect_authenticated_user = True
+#    success_url = reverse_lazy('home')
 
-class CustomLogoutView(LogoutView):
-    template_name = 'relationship_app/logout.html'
+#class CustomLogoutView(LogoutView):
+#    template_name = 'relationship_app/logout.html'
 
 # class registerView(CreateView):
 #    form_class = UserCreationForm
