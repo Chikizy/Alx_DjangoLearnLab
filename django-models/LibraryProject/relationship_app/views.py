@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.detail import DetailView
 from .models import Library, Book
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.contrib.auth import login
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, permission_required
 
 # Create your views here.
 def list_books(request):
@@ -57,6 +57,7 @@ def is_librarian(user):
 def is_member(user):
     return user.is_authenticated and user.userprofile.role == 'Member'
 
+#Role protected views
 @user_passes_test(is_admin)
 def admin_view(request):
     return render(request, 'relationship_app/admin_view.html')
@@ -67,4 +68,15 @@ def librarian_view(request):
 
 @user_passes_test(is_member)
 def member_view(request):
-    return render(request, 'relationship_app/member_view.html')
+ 
+ 
+ ##############
+ #updating views to enforce permissions
+ @permisssion_required('relationship_app.can_add_book')
+ def add_book_view(request)
+
+@permission_required('relationship_app.can_change_book')
+def edit_book_view(request, book_id)
+    
+@permission_required('relationship_app.can_delete_book')
+def delete_book_view(request, book_id)
