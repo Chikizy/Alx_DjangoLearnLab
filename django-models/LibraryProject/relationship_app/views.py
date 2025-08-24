@@ -73,10 +73,13 @@ def member_view(request):
  ##############
  #updating views to enforce permissions
  @permisssion_required('relationship_app.can_add_book')
- def add_book_view(request)
+ def add_book(request):
+     #logic
 
 @permission_required('relationship_app.can_change_book')
-def edit_book_view(request, book_id)
+def edit_book(request, book_id):
+    #logic
     
 @permission_required('relationship_app.can_delete_book')
-def delete_book_view(request, book_id)
+def delete_book(request, book_id):
+    #logic
